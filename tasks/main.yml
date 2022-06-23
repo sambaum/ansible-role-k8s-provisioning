@@ -1,2 +1,9 @@
 ---
 # tasks file for ansible-role-k8s-provisioning
+
+- name: Create directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    # mode: '0755'
+  with_items: "{{ k8s_provisioning_folders }}"

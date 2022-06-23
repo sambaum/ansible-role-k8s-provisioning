@@ -1,2 +1,7 @@
 ---
 # defaults file for ansible-role-k8s-provisioning
+
+k8s_provisioning_folders:
+  - /conf/default
+  - /data/default
+  - /temp/default
