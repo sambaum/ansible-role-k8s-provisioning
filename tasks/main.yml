@@ -7,3 +7,18 @@
     state: directory
     # mode: '0755'
   with_items: "{{ k8s_provisioning_folders }}"
+
+- name: Create .sops directory
+  ansible.builtin.file:
+    path: ~/.sops/
+    state: directory
+    owner: "{{ k8s_provisioning_kubectl_user }}"
+    group: "{{ k8s_provisioning_kubectl_user }}"
+
+- name: Copy age.agekey
+  ansible.builtin.copy:
+    src: files/age.agekey
+    dest: ~/.sops/age.agekey
+    owner: "{{ k8s_provisioning_kubectl_user }}"
+    group: "{{ k8s_provisioning_kubectl_user }}"
+    mode: '0600'
