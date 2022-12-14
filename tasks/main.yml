@@ -12,13 +12,17 @@
   ansible.builtin.file:
     path: ~/.sops/
     state: directory
-    owner: "{{ k8s_provisioning_kubectl_user }}"
-    group: "{{ k8s_provisioning_kubectl_user }}"
+    # owner: "{{ k8s_provisioning_kubectl_user }}"
+    # group: "{{ k8s_provisioning_kubectl_user }}"
+  become: yes
+  become_user: "{{ k8s_provisioning_kubectl_user }}"
 
 - name: Copy age.agekey
   ansible.builtin.copy:
     src: files/age.agekey
     dest: ~/.sops/age.agekey
-    owner: "{{ k8s_provisioning_kubectl_user }}"
-    group: "{{ k8s_provisioning_kubectl_user }}"
+    # owner: "{{ k8s_provisioning_kubectl_user }}"
+    # group: "{{ k8s_provisioning_kubectl_user }}"
     mode: '0600'
+  become: yes
+  become_user: "{{ k8s_provisioning_kubectl_user }}"
