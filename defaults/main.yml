@@ -1,12 +1,13 @@
----
 # defaults file for ansible-role-k8s-provisioning
 
 k8s_provisioning_kubectl_user: sam
 
 k8s_provisioning_folders:
-  - /conf/default
-  - /conf/monitoring
-  - /data/default
-  - /data/monitoring
-  - /temp/default
-  - /temp/monitoring
+- /conf/default
+- /conf/monitoring
+- /data/default
+- /data/monitoring
+- /temp/default
+- /temp/monitoring
+
+k8s_provisioning_gpu: false

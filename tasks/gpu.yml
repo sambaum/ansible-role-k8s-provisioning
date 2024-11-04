@@ -1,0 +1,11 @@
+- name: Install nvidia drivers
+  ansible.builtin.package:
+    name:
+    - nvidia-headless-535-server
+    - nvidia-utils-535-server
+    state: present
+
+- name: Set NVIDIA persistence mode
+  shell: nvidia-smi --persistence-mode=ENABLED
+  become: yes
+  ignore_errors: yes

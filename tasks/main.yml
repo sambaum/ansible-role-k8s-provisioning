@@ -43,3 +43,7 @@
     day: "1"
     month: "*"
     job: "/snap/bin/microk8s.refresh-certs --cert front-proxy-client.crt >> /tmp/microk8s.refresh-certs.log"
+
+- name: Include GPU tasks
+  ansible.builtin.include_tasks: "gpu.yml"
+  when: k8s_provisioning_gpu
