@@ -1,0 +1,20 @@
+- name: Get latest k9s release info from GitHub
+  ansible.builtin.uri:
+    url: https://api.github.com/repos/derailed/k9s/releases/latest
+    return_content: yes
+  register: k9s_release
+
+- name: Set k9s download URL for .deb
+  ansible.builtin.set_fact:
+    k9s_deb_url: "{{ k9s_release.json.assets | selectattr('name', 'search', 'linux_amd64.deb') | map(attribute='browser_download_url') | first }}"
+
+- name: Download k9s .deb package
+  ansible.builtin.get_url:
+    url: "{{ k9s_deb_url }}"
+    dest: /tmp/k9s.deb
+    mode: '0644'
+
+- name: Install k9s via dpkg
+  ansible.builtin.apt:
+    deb: /tmp/k9s.deb
+    state: present

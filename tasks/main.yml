@@ -47,3 +47,6 @@
 - name: Include GPU tasks
   ansible.builtin.include_tasks: "gpu.yml"
   when: k8s_provisioning_gpu
+
+- name: Include k9s tasks
+  ansible.builtin.include_tasks: "k9s.yml"
