@@ -50,3 +50,9 @@
 
 - name: Include k9s tasks
   ansible.builtin.include_tasks: "k9s.yml"
+
+- name: Install Snap packages
+  community.general.snap:
+    name: "{{ item.name }}"
+    classic: "{{ item.classic | default(false) }}"
+  loop: "{{ k8s_provisioning_package_list_snap }}"
