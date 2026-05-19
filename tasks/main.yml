@@ -5,7 +5,7 @@
     path: "{{ item }}"
     state: directory
     # mode: '0755'
-  with_items: "{{ k8s_provisioning_folders }}"
+  loop: "{{ k8s_provisioning_folders }}"
 
 - name: Create .sops directory
   ansible.builtin.file:
@@ -26,7 +26,7 @@
   become: yes
   become_user: "{{ k8s_provisioning_kubectl_user }}"
 
-- name: renew server.crt
+- name: Renew server.crt
   ansible.builtin.cron:
     name: "microk8s renew server.crt"
     minute: "0"
@@ -35,7 +35,7 @@
     month: "*"
     job: "/snap/bin/microk8s.refresh-certs --cert server.crt >> /tmp/microk8s.refresh-certs.log"
 
-- name: renew front-proxy-client.crt
+- name: Renew front-proxy-client.crt
   ansible.builtin.cron:
     name: "microk8s renew front-proxy-client.crt"
     minute: "1"

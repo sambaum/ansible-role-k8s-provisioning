@@ -5,7 +5,13 @@
     - nvidia-utils-535-server
     state: present
 
+- name: Check if NVIDIA GPU device is present
+  ansible.builtin.stat:
+    path: /dev/nvidia0
+  register: nvidia_device
+
 - name: Set NVIDIA persistence mode
-  shell: nvidia-smi --persistence-mode=ENABLED
-  become: yes
-  ignore_errors: yes
+  ansible.builtin.shell:
+    cmd: nvidia-smi --persistence-mode=ENABLED
+  changed_when: true
+  when: nvidia_device.stat.exists
