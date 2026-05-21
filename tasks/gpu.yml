@@ -10,9 +10,19 @@
     path: /dev/nvidia0
   register: nvidia_device
 
+- name: Check NVIDIA persistence mode
+  ansible.builtin.command:
+    cmd: nvidia-smi --query-gpu=persistence_mode --format=csv,noheader
+  register: nvidia_persistence
+  changed_when: false
+  ignore_errors: true
+  when: nvidia_device.stat.exists
+
 - name: Set NVIDIA persistence mode
   ansible.builtin.shell:
     cmd: nvidia-smi --persistence-mode=ENABLED
   changed_when: true
-  ignore_errors: true
-  when: nvidia_device.stat.exists
+  when:
+  - nvidia_device.stat.exists
+  - nvidia_persistence is not skipped
+  - "'Enabled' not in nvidia_persistence.stdout"

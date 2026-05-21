@@ -1,6 +1,2 @@
 ---
 # vars file for ansible-role-k8s-provisioning
-
-k8s_provisioning_package_list_snap:
-- name: kustomize
-  classic: true

@@ -33,7 +33,7 @@
     hour: "12"
     day: "1"
     month: "*"
-    job: "/snap/bin/microk8s.refresh-certs --cert server.crt >> /tmp/microk8s.refresh-certs.log"
+    job: "/snap/bin/microk8s.refresh-certs --cert server.crt >> {{ k8s_provisioning_cert_refresh_log }}"
 
 - name: Renew front-proxy-client.crt
   ansible.builtin.cron:
@@ -42,7 +42,7 @@
     hour: "12"
     day: "1"
     month: "*"
-    job: "/snap/bin/microk8s.refresh-certs --cert front-proxy-client.crt >> /tmp/microk8s.refresh-certs.log"
+    job: "/snap/bin/microk8s.refresh-certs --cert front-proxy-client.crt >> {{ k8s_provisioning_cert_refresh_log }}"
 
 - name: Include GPU tasks
   ansible.builtin.include_tasks: "gpu.yml"

@@ -1,6 +1,6 @@
 # defaults file for ansible-role-k8s-provisioning
 
-k8s_provisioning_kubectl_user: sam
+k8s_provisioning_kubectl_user: "{{ ansible_user_id }}"
 
 k8s_provisioning_folders:
 - /conf/default
@@ -11,3 +11,9 @@ k8s_provisioning_folders:
 - /temp/monitoring
 
 k8s_provisioning_gpu: false
+
+k8s_provisioning_cert_refresh_log: /tmp/microk8s.refresh-certs.log
+
+k8s_provisioning_package_list_snap:
+- name: kustomize
+  classic: true
